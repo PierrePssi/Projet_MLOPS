@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/756575422118112987/effc32d0d6b34a638c31205aa674ddca/artifacts
+end_time: 1742423366896
+entry_point_name: ''
+experiment_id: '756575422118112987'
+lifecycle_stage: active
+run_id: effc32d0d6b34a638c31205aa674ddca
+run_name: merciful-grub-766
+run_uuid: effc32d0d6b34a638c31205aa674ddca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1742423347332
+status: 3
+tags: []
+user_id: Wouaff

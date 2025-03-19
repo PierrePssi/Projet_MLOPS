@@ -100,7 +100,7 @@ else:
 X = vectorizer.transform(df["Description"])
 
 
-# ---------------------------------- DIVISION DES DONNÉES EN TRAIN/TEST ---------------------------------- #
+# -------------------------------------------- DIVISION DES DONNÉES EN TRAIN/TEST ---------------------------------- #
 
 
 X_train, X_test, y_train, y_test = train_test_split(X, df["Sentiment"], test_size=0.2, random_state=42)
@@ -110,10 +110,27 @@ print("Données préparées, prêtes pour l'entraînement du modèle !")
 
 
 
-#------------------------------------ MLFLOW ----------------------------------------------#
+#------------------------------------ ENTRAINEMENT DU MODELE------------------------------------#
 
-mlflow.set_tracking_uri("http://127.0.0.1:8080")  # À activer si ton utilise un serveur MLflow
 
+model_path = "model_lr.pkl"
+
+try:
+    model = joblib.load(model_path)
+    print("Modèle existant chargé.")
+except FileNotFoundError:
+    print("Aucun modèle trouvé, entraînement en cours...")
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+    joblib.dump(model, model_path)
+    print("Modèle entraîné et sauvegardé.")
+
+print("Modèle prêt à être utilisé !")
+
+
+#----------------------------------------------- MLFLOW -------------------------------------------------#
+
+mlflow.set_tracking_uri("http://127.0.0.1:8080")  # mlflow server --host 127.0.0.1 --port 8080
 client = MlflowClient()
 
 # Définition de l'expérience MLflow
@@ -139,34 +156,15 @@ try:
 except:
     experiment_id = client.get_experiment_by_name(experiment_name).experiment_id
 
-mlflow.set_experiment(experiment_name)  # Garde seulement cette ligne
+mlflow.set_experiment(experiment_name)
 
 # Démarrer un run MLflow
 with mlflow.start_run():
     mlflow.log_param("model", "LogisticRegression")
     mlflow.log_param("vectorizer", "TF-IDF (max_features=5000)")
 
-
-#------------------------------------ ENTRAINEMENT DU MODELE----------------------#
-
-
-model_path = "model_lr.pkl"
-
-try:
-    model = joblib.load(model_path)
-    print("Modèle existant chargé.")
-except FileNotFoundError:
-    print("Aucun modèle trouvé, entraînement en cours...")
-    model = LogisticRegression()
-    model.fit(X_train, y_train)
-    joblib.dump(model, model_path)
-    print("Modèle entraîné et sauvegardé.")
-
-print("Modèle prêt à être utilisé !")
-
-
-#------------------------------------ METRIQUES AVEC MLFLOW----------------------#
-
+#------------------------------------ METRIQUES AVEC MLFLOW---------------------------------#
+    
 # Évaluer le modèle et enregistrer les métriques
 train_accuracy = model.score(X_train, y_train)
 test_accuracy = model.score(X_test, y_test)
@@ -177,11 +175,9 @@ mlflow.log_metric("test_accuracy", test_accuracy)
 print(f"Précision sur les données d'entraînement : {train_accuracy:.4f}")
 print(f"Précision sur les données de test : {test_accuracy:.4f}")
 
-
 # Enregistrer le modèle avec MLflow
 mlflow.sklearn.log_model(model, "logistic_regression_model")
 print("Modèle sauvegardé avec MLflow.")
 
 mlflow.sklearn.log_model(vectorizer, "tfidf_vectorizer")
 print("Vectorizer sauvegardé avec MLflow.")
-

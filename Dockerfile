@@ -11,4 +11,4 @@ COPY .  /app/
 RUN pip install --no-cache-dir --upgrade pip &&\
     pip install --no-cache-dir --trusted-host pypi.python.org -r requirements.txt
 
-CMD ["python", "app.py"]
+CMD ["streamlit", "run", "app.py", "--server.port=5002", "--server.address=0.0.0.0"]

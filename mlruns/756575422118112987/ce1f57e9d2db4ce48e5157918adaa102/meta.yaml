@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/756575422118112987/ce1f57e9d2db4ce48e5157918adaa102/artifacts
+end_time: 1742419051010
+entry_point_name: ''
+experiment_id: '756575422118112987'
+lifecycle_stage: active
+run_id: ce1f57e9d2db4ce48e5157918adaa102
+run_name: resilient-koi-60
+run_uuid: ce1f57e9d2db4ce48e5157918adaa102
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1742419050781
+status: 3
+tags: []
+user_id: Wouaff

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/756575422118112987/93387e621ed84dc1bfcb1209d7fd2fed/artifacts
+end_time: 1742419073318
+entry_point_name: ''
+experiment_id: '756575422118112987'
+lifecycle_stage: active
+run_id: 93387e621ed84dc1bfcb1209d7fd2fed
+run_name: stylish-yak-97
+run_uuid: 93387e621ed84dc1bfcb1209d7fd2fed
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1742419051982
+status: 3
+tags: []
+user_id: Wouaff

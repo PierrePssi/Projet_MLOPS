@@ -73,7 +73,7 @@ jobs:
       # Get the current date to use as a tag
 
       - name: Debug Docker Tag
-        run: echo "Docker tag: $DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+        run: echo "Docker tag:$DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
       # Debug step to check the Docker tag format
 
       - name: Build the Docker image

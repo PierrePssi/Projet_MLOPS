@@ -1,6 +1,6 @@
 import streamlit as st
 import joblib
-import pandas as pd
+#import pandas as pd
 
 # Charger le modèle et le vectorizer
 model_path = "model_lr.pkl"

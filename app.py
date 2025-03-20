@@ -12,9 +12,13 @@ try:
     model = joblib.load(model_path)
     vectorizer = joblib.load(vectorizer_path)
     st.success("✅ Modèle et vectorizer chargés avec succès !")
+except FileNotFoundError:
+    st.error("⚠️ Fichier modèle ou vectorizer introuvable. Vérifiez les chemins des fichiers.")
+except joblib.externals.loky.process_executor.BrokenProcessPool:
+    st.error("⚠️ Erreur interne de Joblib (BrokenProcessPool). Redémarrez l'application.")
 except Exception as e:
-    st.error(f"⚠️ Erreur lors du chargement des fichiers : {e}")
-
+    st.error(f"⚠️ Une erreur inattendue est survenue : {e}")
+    
 # Interface utilisateur
 st.write("📌 Entrez une critique de film et obtenez son sentiment (Positif/Négatif).")
 

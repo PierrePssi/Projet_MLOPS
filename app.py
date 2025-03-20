@@ -16,8 +16,10 @@ except FileNotFoundError:
     st.error("⚠️ Fichier modèle ou vectorizer introuvable. Vérifiez les chemins des fichiers.")
 except joblib.externals.loky.process_executor.BrokenProcessPool:
     st.error("⚠️ Erreur interne de Joblib (BrokenProcessPool). Redémarrez l'application.")
-except Exception as e:
-    st.error(f"⚠️ Une erreur inattendue est survenue : {e}")
+except joblib.externals.loky.backend.exceptions.LokyError:
+    st.error("⚠️ Erreur Joblib : LokyError détecté.")
+except OSError:
+    st.error("⚠️ Problème avec le chargement du fichier (corruption ou accès refusé).")
     
 # Interface utilisateur
 st.write("📌 Entrez une critique de film et obtenez son sentiment (Positif/Négatif).")

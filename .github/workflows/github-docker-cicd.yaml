@@ -1,9 +1,9 @@
 name: Github-Docker Hub MLOps pipeline - Streamlit Sentiment Analysis
 
 env:
-  DOCKER_USER: ${{secrets.DOCKER_USER}}
-  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-  REPO_NAME: ${{secrets.REPO_NAME}}
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  REPO_NAME: ${{ secrets.REPO_NAME }}
 
 on:
   push:
@@ -49,7 +49,11 @@ jobs:
         run: echo "DATE_TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag "$DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+        run: |
+          echo "Building Docker image with tag: $DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+          docker build . --file Dockerfile --tag "$DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
 
       - name: Docker Push
-        run: docker push "$DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+        run: |
+          echo "Pushing Docker image with tag: $DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+          docker push "$DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"

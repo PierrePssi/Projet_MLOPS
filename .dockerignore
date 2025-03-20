@@ -2,4 +2,5 @@ test.py
 readme.md
 .git*
 Notebook_Projet_MLOPS.ipynb
-
+./venv
+train.py

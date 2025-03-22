@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/756575422118112987/29a51fb74df04d288d5b19070c4f8926/artifacts
+end_time: 1742419621153
+entry_point_name: ''
+experiment_id: '756575422118112987'
+lifecycle_stage: active
+run_id: 29a51fb74df04d288d5b19070c4f8926
+run_name: useful-moth-335
+run_uuid: 29a51fb74df04d288d5b19070c4f8926
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1742419599483
+status: 3
+tags: []
+user_id: Wouaff

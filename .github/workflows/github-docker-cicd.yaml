@@ -1,0 +1,59 @@
+name: Github-Docker Hub MLOps pipeline - Streamlit Sentiment Analysis
+
+env:
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  REPO_NAME: ${{ secrets.REPO_NAME }}
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci_pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1 
+        with:
+          fetch-depth: 0
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Format
+        run: |
+          black app.py
+
+  cd_pipeline:
+    runs-on: ubuntu-latest
+    needs: [ci_pipeline]
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout code
+
+      - name: Docker login
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Get current date
+        id: date
+        run: echo "DATE_TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+      - name: Build the Docker image
+        run: |
+          echo "Building Docker image with tag: $DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+          docker build . --file Dockerfile --tag "$DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+
+      - name: Docker Push
+        run: |
+          echo "Pushing Docker image with tag: $DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"
+          docker push "$DOCKER_USER/$REPO_NAME:${{ env.DATE_TAG }}"

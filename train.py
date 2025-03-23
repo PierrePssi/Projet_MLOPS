@@ -125,7 +125,7 @@ except FileNotFoundError:
     joblib.dump(model, model_path)
     print("Modèle entraîné et sauvegardé.")
 
-print("Modèle prêt à être utilisé !")
+print("Modèle prêt à être utilisé, ouvrir MLflow !")
 
 
 #----------------------------------------------- MLFLOW -------------------------------------------------#

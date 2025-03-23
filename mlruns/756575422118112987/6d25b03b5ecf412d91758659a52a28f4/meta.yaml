@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/756575422118112987/6d25b03b5ecf412d91758659a52a28f4/artifacts
+end_time: 1742424354390
+entry_point_name: ''
+experiment_id: '756575422118112987'
+lifecycle_stage: active
+run_id: 6d25b03b5ecf412d91758659a52a28f4
+run_name: funny-crow-694
+run_uuid: 6d25b03b5ecf412d91758659a52a28f4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1742424335636
+status: 3
+tags: []
+user_id: Wouaff
